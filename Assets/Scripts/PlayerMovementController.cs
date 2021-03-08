@@ -103,4 +103,15 @@ public class PlayerMovementController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, actualTilt);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
     }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        //Debug.Log("collided " + hit.gameObject.name);
+        if(hit.gameObject.tag == "Floor") return;
+        if(hit.gameObject.tag == "Obstacle")  
+        {       
+            Debug.Log("player hit");  
+            GameManager.Instance.lives += 1;
+        }           
+    }
 }
