@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+	public HealthBar healthBar;  // ref to health bar
     [SerializeField] private int MAXLIVES = 4;
     public int lives;
     static private int prevLifeCounter;  // so can detect when changes
@@ -42,24 +43,29 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prevLifeCounter = lives;
+		healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
+		lives = 0;
+		healthBar.SetMaxHealth(MAXLIVES);
+		prevLifeCounter = lives;
     }
 
     // Update is called once per frame
     void Update()
     {
-        didPlayerLoseLife();  
+        didPlayerLoseLife();
     }
 
     void didPlayerLoseLife(){
         if (prevLifeCounter != lives) // life lost
         {
             Debug.Log("lost life");
+			healthBar.SetHealth(MAXLIVES - lives);
+
         }
         prevLifeCounter = lives; // update
 
         if (lives == MAXLIVES){  // check if lost game
-            Debug.Log("lost game");      
+            Debug.Log("lost game");
         }
     }
 
