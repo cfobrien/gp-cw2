@@ -7,7 +7,7 @@ using Plots;
 
 public class PlotManager : MonoBehaviour
 {
-    public static int numRoadPlots = 100;
+    public static int numRoadPlots = 50;
     public static float rotationSpeed = 36.0f;
     private static float angleIncrement = 360.0f / (float)numRoadPlots;
     public static Plot[] roadPlots = new Plot[numRoadPlots];
@@ -17,7 +17,7 @@ public class PlotManager : MonoBehaviour
 
     private float t = 0.0f;
 
-    public GameObject road, building5, building8;
+    public GameObject road, building5, building8, patio;
 
     Vector3 GetPlotSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -91,6 +91,7 @@ public class PlotManager : MonoBehaviour
         GenRoad(road);
         GenPlots(building5, 5);
         GenPlots(building8, 5);
+        GenPlots(patio, 2);
     }
 
     void Update()
