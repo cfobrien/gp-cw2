@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     {
         GameObject topRoad = GameObject.Find("Road 1");
         Vector3 topRoadPos = topRoad.GetComponent<Transform>().position;
-        gameObject.GetComponent<Transform>().position = topRoadPos + new Vector3(0.0f, 1.0f, -0.5f);
+        gameObject.GetComponent<Transform>().position = topRoadPos + new Vector3(0.0f, 1.0f, -1.2f);
     }
 
     // Update is called once per frame
