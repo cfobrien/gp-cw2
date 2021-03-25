@@ -20,7 +20,7 @@ public class player : MonoBehaviour
         height = camera.GetComponent<PlotManager>().GetInradius(camera.GetComponent<PlotManager>().road);
         Debug.Log(height);
         transform.position = new Vector3(0.0f, height, 0.6f);
-        target = transform.position;
+        //target = transform.position;
     }
 
     // Update is called once per frame
