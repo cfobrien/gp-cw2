@@ -7,7 +7,7 @@ using Plots;
 
 public class PlotManager : MonoBehaviour
 {
-    public static int numRoadPlots = 50;
+    public static int numRoadPlots = 100;
     public static float rotationSpeed = 36.0f;
     private static float angleIncrement = 360.0f / (float)numRoadPlots;
     public static Plot[] roadPlots = new Plot[numRoadPlots];
@@ -23,7 +23,7 @@ public class PlotManager : MonoBehaviour
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
     }
 
-    float GetInradius(GameObject gameObject) {
+    public float GetInradius(GameObject gameObject) {
         Vector3 plotSize = GetPlotSize(gameObject);
         float plotHeight = plotSize.y;
         float plotLen = plotSize.z;
