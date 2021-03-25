@@ -53,10 +53,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        didPlayerLoseLife();
+        DidPlayerLoseLife();
     }
 
-    void didPlayerLoseLife(){
+    void DidPlayerLoseLife(){
         if (prevLifeCounter != lives) // life lost
         {
             Debug.Log("lost life");
