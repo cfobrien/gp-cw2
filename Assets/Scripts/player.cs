@@ -18,7 +18,7 @@ public class player : MonoBehaviour
         lives = 3;
         state = 0;
         height = camera.GetComponent<PlotManager>().GetInradius(camera.GetComponent<PlotManager>().road);
-        Debug.Log(height); 
+        Debug.Log(height);
         transform.position = new Vector3(0.0f, height, 0.6f);
         target = transform.position;
     }
@@ -50,5 +50,8 @@ public class player : MonoBehaviour
 
         //transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
-}
 
+	void OnTriggerEnter(Collider other) {
+        GameManager.Instance.lives++;
+    }
+}

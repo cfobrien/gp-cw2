@@ -8,16 +8,18 @@ using Plots;
 public class PlotManager : MonoBehaviour
 {
     public static int numRoadPlots = 100;
+	public static int numObstacles = 100;
     public static float rotationSpeed = 36.0f;
     private static float angleIncrement = 360.0f / (float)numRoadPlots;
     public static Plot[] roadPlots = new Plot[numRoadPlots];
     public static Plot[] lhsPlots = new Plot[numRoadPlots];
     public static Plot[] rhsPlots = new Plot[numRoadPlots];
+	public static Plot[] obstaclePlots =  new Plot[numObstacles];
     public float roadLen, roadHeight;
 
     private float t = 0.0f;
 
-    public GameObject road, building5, building8, patio;
+    public GameObject road, building5, building8, patio, obstacle;
 
     Vector3 GetPlotSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -72,6 +74,24 @@ public class PlotManager : MonoBehaviour
         }
     }
 
+	void GenObstacles(GameObject root, int num) {
+        System.Random rand = new System.Random();
+        for (int i = 0; i < num; i++) {
+            int obstacleIndexCandidate;
+			float rndXPos = (float)(rand.NextDouble() - 0.5); // range from - 0.5 to 0.5
+
+            GameObject plot = Instantiate(root);
+            obstacleIndexCandidate = rand.Next(0, numObstacles);
+
+            float inradius = GetInradius(plot);
+            plot.GetComponent<Transform>().position = rndXPos*Vector3.right;
+            plot.GetComponent<Transform>().rotation *= Quaternion.Euler(Vector3.up);
+
+            obstaclePlots[obstacleIndexCandidate] = MakePlot<Plot>(plot, inradius*Vector3.up);
+            obstaclePlots[obstacleIndexCandidate].Rotate(angleIncrement*obstacleIndexCandidate);
+        }
+    }
+
     protected T MakePlot<T>(GameObject gameObject, string name = null) {
         return (T)Activator.CreateInstance(typeof(T), new object[] {gameObject, name});
     }
@@ -92,6 +112,7 @@ public class PlotManager : MonoBehaviour
         GenPlots(building5, 5);
         GenPlots(building8, 5);
         GenPlots(patio, 2);
+		GenObstacles(obstacle,20);
     }
 
     void Update()
@@ -100,6 +121,9 @@ public class PlotManager : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) {
             for (int i = 0; i < numRoadPlots; i++) {
                 roadPlots[i].Rotate(-rotationSpeed * t);
+				if (obstaclePlots[i] != null){
+					obstaclePlots[i].Rotate(-rotationSpeed * t);
+				}
                 if(lhsPlots[i] != null) {
                     lhsPlots[i].Rotate(-rotationSpeed * t);
                 }
