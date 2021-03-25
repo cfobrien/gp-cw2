@@ -20,25 +20,40 @@ public class animationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("lives: " + lives);
-        if (Input.GetKey("w") || Input.GetKeyDown("w"))
+        
+        if (Input.GetKey("w"))
         {
             animator.SetBool("running", true);
-
         }
         else
         {
             animator.SetBool("running", false);
         }
 
+        if (Input.GetKey("a") && !Input.GetKey("d"))
+        {
+            animator.SetBool("leftTurn", true);
+            animator.SetBool("rightTurn", false);
+        }
+        else if (!Input.GetKey("a") && Input.GetKey("d")){
+            animator.SetBool("leftTurn", false);
+            animator.SetBool("rightTurn", true);
+        }else
+        {
+            animator.SetBool("leftTurn", false);
+            animator.SetBool("rightTurn", false);
+        }
+
+        // simulates losing lives - for testing
         if (Input.GetKeyDown("m"))
         {
             lives -= 1;
-            if (lives == 0 || currPlayer.lives == 0)
-            {
-                animator.SetBool("dead", true);
-            }
             Debug.Log("lives: " + lives);
+        }
+        // check if lost all lives
+        if (lives == 0 || currPlayer.lives == 0)
+        {
+            animator.SetBool("dead", true);
         }
     }
 }
