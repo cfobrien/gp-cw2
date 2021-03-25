@@ -6,7 +6,7 @@ public class animationController : MonoBehaviour
 {
     Animator animator;
     int lives;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +20,12 @@ public class animationController : MonoBehaviour
         if (Input.GetKeyDown("n"))
         {
             animator.SetBool("startGame", true);
-            
+
         }
         else if(Input.GetKeyDown("m"))
         {
             lives -= 1;
+			GameManager.Instance.lives ++;
             if (lives == 0)
             {
                 animator.SetBool("dead", true);
