@@ -19,7 +19,7 @@ public class PlotManager : MonoBehaviour
 
     private float t = 0.0f;
 
-    public GameObject road, building5, building8, patio, obstacle;
+    public GameObject road, building5, building8, patio, obstacle, obstacle1, obstacle2, obstacle3;
 
     Vector3 GetPlotSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -113,6 +113,9 @@ public class PlotManager : MonoBehaviour
         GenPlots(building8, 5);
         GenPlots(patio, 2);
 		GenObstacles(obstacle,20);
+		GenObstacles(obstacle1,20);
+		GenObstacles(obstacle2,20);
+		GenObstacles(obstacle3,20);
     }
 
     void Update()
