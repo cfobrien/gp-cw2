@@ -1,9 +1,11 @@
 # gp-cw2
 # TODO:
-  - procedurally generate buildings on sphere
-  - character controller (left, right, move ground under character moving forward)
-# Next:
-  - animated character and NPC's
-  - game logic (health, etc)
-  - extra movement
- 
+  - animate obstacles
+  - acceleration
+  - deccelaration
+  - add landmarks
+  - add sounds
+  - add timer as score
+  - stats for losing (score...)
+  - generate stuff to get more lives
+  - make pretty characters
