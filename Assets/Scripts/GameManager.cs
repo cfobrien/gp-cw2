@@ -38,22 +38,42 @@ public class GameManager : MonoBehaviour
 	public HealthBar healthBar;  // ref to health bar
     [SerializeField] private int MAXLIVES = 4;
     public int lives;
+	public int level = 0;  // based on btn from scene select
     static private int prevLifeCounter;  // so can detect when changes
 
 
     // Start is called before the first frame update
     void Start()
     {
-		healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
-		lives = 0;
-		healthBar.SetMaxHealth(MAXLIVES);
-		prevLifeCounter = lives;
+		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
+			return;
+		}
+		// healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
+        // healthBar.SetMaxHealth(MAXLIVES);;
+		// lives = 0;
+		// prevLifeCounter = lives;
+
     }
+
+	void OnLevelWasLoaded()  // start and awake dont run on other scenes bc dont destroy on load
+    {
+		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
+			return;
+		}
+		healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
+        healthBar.SetMaxHealth(MAXLIVES);;
+		lives = 0;
+		prevLifeCounter = lives;
+		Debug.Log(lives);
+	}
 
     // Update is called once per frame
     void Update()
     {
-        DidPlayerLoseLife();
+		if(SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
+			return;
+		}
+			DidPlayerLoseLife();
     }
 
     void DidPlayerLoseLife(){
@@ -67,7 +87,7 @@ public class GameManager : MonoBehaviour
 
         if (lives == MAXLIVES){  // check if lost game
             Debug.Log("lost game");
-			SceneManager.LoadScene(1);
+			SceneManager.LoadScene(2);
         }
     }
 

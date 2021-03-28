@@ -37,6 +37,10 @@ public class player : MonoBehaviour
     }
 
 	void OnTriggerEnter(Collider other) {
+		Debug.Log(this.gameObject.name + " collided with " + other.gameObject.name);
+		if (this.gameObject.name == other.gameObject.name){
+			return;
+		}
         GameManager.Instance.lives++;
     }
 }
