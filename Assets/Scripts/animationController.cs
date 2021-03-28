@@ -12,7 +12,7 @@ public class animationController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        GameObject playerObj = GameObject.Find("player");
+        GameObject playerObj = GameObject.Find("newPlayer");
         currPlayer = playerObj.GetComponent<player>();
         lives = 3;
     }
@@ -30,16 +30,27 @@ public class animationController : MonoBehaviour
             animator.SetBool("running", false);
         }
 
-        if (Input.GetKey("a") && !Input.GetKey("d"))
+        if (Input.GetKeyDown("space"))
         {
+            animator.SetBool("jump", true);
+            animator.SetBool("leftTurn", false);
+            animator.SetBool("rightTurn", false);
+        }
+        else if (Input.GetKeyDown("a") && !Input.GetKey("d"))
+        {
+            animator.SetBool("jump", false); 
             animator.SetBool("leftTurn", true);
             animator.SetBool("rightTurn", false);
         }
-        else if (!Input.GetKey("a") && Input.GetKey("d")){
+        else if (!Input.GetKey("a") && Input.GetKeyDown("d"))
+        {
+            animator.SetBool("jump", false);
             animator.SetBool("leftTurn", false);
             animator.SetBool("rightTurn", true);
-        }else
+        }
+        else
         {
+            animator.SetBool("jump", false); 
             animator.SetBool("leftTurn", false);
             animator.SetBool("rightTurn", false);
         }

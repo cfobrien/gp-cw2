@@ -1,6 +1,6 @@
 # gp-cw2
 # TODO:
-  - animate obstacles
+  - animate obstacles (X)
   - acceleration
   - deccelaration
   - add landmarks
@@ -8,4 +8,4 @@
   - add timer as score
   - stats for losing (score...)
   - generate stuff to get more lives
-  - make pretty characters
+  - make pretty characters (X)
