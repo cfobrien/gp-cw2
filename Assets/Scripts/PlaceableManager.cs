@@ -147,9 +147,9 @@ public class PlaceableManager : MonoBehaviour
     }
 
     void UpdatePlaceables(Placeable[] placeables) {
-        for (int i = 0; i < placeables.Length; i++) {
-            if (placeables[i] != null) {
-                placeables[i].Rotate(-rotationSpeed * t);
+        foreach (Placeable placeable in placeables) {
+            if (placeable != null) {
+                placeable.Rotate(-rotationSpeed * t);
             }
         }
     }
@@ -162,6 +162,11 @@ public class PlaceableManager : MonoBehaviour
             UpdatePlaceables(npcs);
             UpdatePlaceables(lhsPlaceables);
             UpdatePlaceables(rhsPlaceables);
+        }
+        foreach (NPC npc in npcs) {
+            if (npc != null) {
+                npc.RandomWalk(Vector3.up, 0.001f);
+            }
         }
     }
 }

@@ -92,10 +92,18 @@ namespace Placeables {
         }
         public NPC(GameObject gameObject, string name = null) : base(gameObject, name) {
         }
-        public void RandomWalk(Vector3 normal, float variance) {
-            // TODO: Implement Box-Muller transform
-            return;
+
+        public void RandomWalk(Vector3 normal, float variance = 1.0f) {
+            // Random walk implementation using Box-Muller transform
+            float u1 = Random.Range(0.0f, 1.0f);
+            float u2 = Random.Range(0.0f, 1.0f); // Is this independant from line above??
+            float r = Mathf.Sqrt(-2.0f*Mathf.Log(u1));
+            float theta = 2.0f * Mathf.PI * u2;
+            float z1 = variance * r * Mathf.Cos(theta);
+            float z2 = variance * r * Mathf.Sin(theta);
+            MoveBy(z1 * gameObject.transform.forward + z2 * gameObject.transform.right);
         }
+
         public void Face(Vector3 point) {
             return;
         }
