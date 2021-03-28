@@ -9,13 +9,13 @@ public class PlaceableManager : MonoBehaviour
 {
     public static int numRoadPlaceables = 100;
 	public static int numObstacles = 100;
-    public static int numNPCs = 50;
+    public static int numNPCs = 100;
     public static float rotationSpeed;
     private static float angleIncrement = 360.0f / (float)numRoadPlaceables;
-    public static Placeable[] roadPlaceables = new Placeable[numRoadPlaceables];
+    public static Road[] roadPlaceables = new Road[numRoadPlaceables];
     public static Placeable[] lhsPlaceables = new Placeable[numRoadPlaceables];
     public static Placeable[] rhsPlaceables = new Placeable[numRoadPlaceables];
-	public static Placeable[] obstaclePlaceables =  new Placeable[numObstacles];
+	public static Obstacle[] obstacles =  new Obstacle[numObstacles];
     public static NPC[] npcs = new NPC[numNPCs];
     public float roadLen, roadHeight;
     public float roadRadius;
@@ -49,6 +49,23 @@ public class PlaceableManager : MonoBehaviour
         // Calculate radius of concentric circle to numRoadPlaceables-sided regular polygon
         float radius = roadLen / (2 * Mathf.Sin(Mathf.PI / (float)numRoadPlaceables));
         return radius;
+    }
+
+    int GetEmptyIndex(Placeable[] placeables, System.Random rand) {
+        List<int> explored = new List<int>();
+        int numExplored = 0;
+        int indexCandidate = -1;
+        do {
+            indexCandidate = rand.Next(0, placeables.Length);
+            if (!explored.Contains(indexCandidate)) {
+                explored.Add(indexCandidate);
+                numExplored++;
+            }
+            if (numExplored == placeables.Length) {// if (explored.Capacity == placeables.Length) {
+                return -1;
+            }
+        } while(placeables[indexCandidate] != null);
+        return indexCandidate;
     }
 
     bool IsPlaceable(GameObject gameObject, Placeable[] side, int i) {
@@ -92,39 +109,50 @@ public class PlaceableManager : MonoBehaviour
         }
     }
 
+    void GenPlaceables<T>(GameObject root, int num) {
+        return;
+    }
+
 	void GenObstacles(GameObject root, int num) {
         System.Random rand = new System.Random();
         for (int i = 0; i < num; i++) {
-            int obstacleIndexCandidate;
-			float rndXPos = (float)(rand.NextDouble() - 0.5); // range from - 0.5 to 0.5
+            float rndXPos = (float)(rand.NextDouble() - 0.5); // range from - 0.5 to 0.5
 
-            GameObject placeable = Instantiate(root);
-            obstacleIndexCandidate = rand.Next(0, numObstacles);
+            int index = GetEmptyIndex(obstacles, rand);
+            if (index == -1) {
+                Debug.Log("No more space in array");
+            } else {
+                GameObject obstacle = Instantiate(root);
 
-            float inradius = GetInradius(placeable);
-            placeable.GetComponent<Transform>().position = rndXPos*Vector3.right;
-            placeable.GetComponent<Transform>().rotation *= Quaternion.Euler(Vector3.up);
+                float inradius = GetInradius(obstacle);
+                obstacle.GetComponent<Transform>().position = rndXPos*Vector3.right;
+                obstacle.GetComponent<Transform>().rotation *= Quaternion.Euler(Vector3.up);
 
-            obstaclePlaceables[obstacleIndexCandidate] = MakePlaceable<Placeable>(placeable, inradius*Vector3.up);
-            obstaclePlaceables[obstacleIndexCandidate].Rotate(angleIncrement*obstacleIndexCandidate);
+                obstacles[index] = MakePlaceable<Obstacle>(obstacle, inradius*Vector3.up);
+                obstacles[index].Rotate(angleIncrement*index);
+            }
         }
     }
 
     void GenNPCs(GameObject root, int num) {
         System.Random rand = new System.Random();
         for (int i = 0; i < num; i++) {
-            int NPCIndexCandidate;
 			float rndXPos = (float)(rand.NextDouble() - 0.5); // range from - 0.5 to 0.5
 
-            GameObject npc = Instantiate(root);
-            NPCIndexCandidate = rand.Next(0, numNPCs);
+            int npcIndex = GetEmptyIndex(npcs, rand);
+            if (npcIndex == -1) {
+                Debug.Log("No more space in npcs array");
+            } else {
+                Debug.Log(npcIndex.ToString());
+                GameObject npc = Instantiate(root);
 
-            float inradius = GetInradius(npc);
-            npc.GetComponent<Transform>().position = rndXPos*Vector3.right;
-            npc.GetComponent<Transform>().rotation *= Quaternion.Euler(Vector3.up);
+                float inradius = GetInradius(npc);
+                npc.GetComponent<Transform>().position = rndXPos*Vector3.right;
+                npc.GetComponent<Transform>().rotation *= Quaternion.Euler(Vector3.up);
 
-            npcs[NPCIndexCandidate] = MakePlaceable<NPC>(npc, inradius*Vector3.up);
-            npcs[NPCIndexCandidate].Rotate(angleIncrement*NPCIndexCandidate);
+                npcs[npcIndex] = MakePlaceable<NPC>(npc, inradius*Vector3.up);
+                npcs[npcIndex].Rotate(angleIncrement*npcIndex);
+            }
         }
     }
 
@@ -149,10 +177,13 @@ public class PlaceableManager : MonoBehaviour
         cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
 
         GenRoad(road);
-		//GenPlaceables(building2, 20);
+		GenPlaceables(building2, 20);
         GenPlaceables(building5, 20);
         GenPlaceables(building8, 20);
         GenPlaceables(patio, 2);
+
+        // GenObstacles(patio, 3);
+
         GenNPCs(npc1, 20);
         GenNPCs(npc2, 20);
         GenNPCs(npc3, 20);
@@ -175,12 +206,19 @@ public class PlaceableManager : MonoBehaviour
             UpdatePlaceables(npcs);
             UpdatePlaceables(lhsPlaceables);
             UpdatePlaceables(rhsPlaceables);
+            UpdatePlaceables(obstacles);
         }
+        int count = 0;
+        int countnonnull = 0;
         foreach (NPC npc in npcs) {
+            count++;
             if (npc != null) {
+                countnonnull++;
                 npc.RandomWalk(Vector3.up, 0.001f);
                 npc.Face(player.transform);
             }
         }
+        // Debug.Log("NPC array slots checked: " + count.ToString());
+        // Debug.Log("non null NPC array slots: " + countnonnull.ToString());
     }
 }
