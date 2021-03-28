@@ -10,14 +10,14 @@ public class player : MonoBehaviour
     float speed = 2.0f;         // speed moved to side
     float height;
     Vector3 target;
-    public GameObject camera;
+    public GameObject playerCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         lives = 3;
         state = 0;
-        height = camera.GetComponent<PlotManager>().GetInradius(camera.GetComponent<PlotManager>().road);
+        height = playerCamera.GetComponent<PlaceableManager>().GetInradius(playerCamera.GetComponent<PlaceableManager>().road);
         transform.position = new Vector3(0.0f, height, 0.6f);
     }
 

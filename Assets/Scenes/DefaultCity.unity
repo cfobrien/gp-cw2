@@ -232,12 +232,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &89577128 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 126530, guid: d8c4bc004abb4fb428be3467211cea9c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1798136171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &156578295
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +489,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 98a9afd14cf17bb48a434747fcf93553,
         type: 3}
       propertyPath: m_Name
-      value: Obstacle
+      value: npc1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98a9afd14cf17bb48a434747fcf93553, type: 3}
@@ -626,7 +620,7 @@ MonoBehaviour:
   lives: 0
   state: 0
   moveDistance: 0.36
-  camera: {fileID: 1001020240}
+  playerCamera: {fileID: 1001020240}
 --- !u!114 &288045743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -898,7 +892,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 98a9afd14cf17bb48a434747fcf93553,
         type: 3}
       propertyPath: m_Name
-      value: Obstacle 2
+      value: npc3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98a9afd14cf17bb48a434747fcf93553, type: 3}
@@ -1508,15 +1502,17 @@ MonoBehaviour:
   roadLen: 0
   roadHeight: 0
   roadRadius: 0
+  player: {fileID: 288045741}
+  cylinder: {fileID: 2071215015}
   road: {fileID: 1787763454}
-  building2: {fileID: 89577128}
+  building2: {fileID: 0}
   building5: {fileID: 1403539500}
   building8: {fileID: 956880763}
   patio: {fileID: 152866, guid: be9e5607f396e314f9284859db0f54bd, type: 3}
-  obstacle: {fileID: 233807251}
-  obstacle1: {fileID: 1130956205}
-  obstacle2: {fileID: 1697721820}
-  obstacle3: {fileID: 2090521840}
+  npc1: {fileID: 233807251}
+  npc2: {fileID: 1130956205}
+  npc3: {fileID: 1697721820}
+  npc4: {fileID: 2090521840}
 --- !u!1001 &1130956204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1597,7 +1593,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dafb9f40aeabe3e488da9dc8e7214b94,
         type: 3}
       propertyPath: m_Name
-      value: Obstacle 1
+      value: npc2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafb9f40aeabe3e488da9dc8e7214b94, type: 3}
@@ -1939,7 +1935,7 @@ MonoBehaviour:
   lives: 0
   state: 0
   moveDistance: 0.36
-  camera: {fileID: 1001020240}
+  playerCamera: {fileID: 0}
 --- !u!143 &1439891871
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2810,7 +2806,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dafb9f40aeabe3e488da9dc8e7214b94,
         type: 3}
       propertyPath: m_Name
-      value: Obstacle 3
+      value: npc4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafb9f40aeabe3e488da9dc8e7214b94, type: 3}
