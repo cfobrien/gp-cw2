@@ -22,7 +22,7 @@ public class PlotManager : MonoBehaviour
     private float t = 0.0f;
     private float roadsPerSec = 5.0f;      // number of road plots covered by player in 1 second
 
-    public GameObject road, building5, building8, patio, obstacle, obstacle1, obstacle2, obstacle3;
+    public GameObject road, building2, building5, building8, patio, obstacle, obstacle1, obstacle2, obstacle3;
 
     Vector3 GetPlotSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -115,8 +115,9 @@ public class PlotManager : MonoBehaviour
         rotationSpeed = (360 * roadsPerSec) / numRoadPlots;
 
         GenRoad(road);
-        GenPlots(building5, 5);
-        GenPlots(building8, 5);
+		//GenPlots(building2, 20);
+        GenPlots(building5, 20);
+        GenPlots(building8, 20);
         GenPlots(patio, 2);
 		GenObstacles(obstacle,20);
 		GenObstacles(obstacle1,20);
