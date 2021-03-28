@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/DefaultCity.unity
+- path: Assets/Scenes/ChoseLevel.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

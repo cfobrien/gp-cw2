@@ -54,7 +54,7 @@ public class animationController : MonoBehaviour
         }
 
         // check if lost all lives
-        if (GameManager.Instance.lives == 0)
+        if (GameManager.Instance.lives == GameManager.Instance.MAXLIVES)
         {
             animator.SetBool("dead", true);
         }
