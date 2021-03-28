@@ -20,5 +20,5 @@ public interface IPlaceable {
 
 public interface INPC {
     void RandomWalk(Vector3 normal, float variance);
-    void Face(Vector3 point);
+    void Face(Transform transform);
 }

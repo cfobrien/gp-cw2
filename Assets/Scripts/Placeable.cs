@@ -104,8 +104,8 @@ namespace Placeables {
             MoveBy(z1 * gameObject.transform.forward + z2 * gameObject.transform.right);
         }
 
-        public void Face(Vector3 point) {
-            return;
+        public void Face(Transform transform) {
+            gameObject.transform.LookAt(transform, gameObject.transform.up);
         }
     }
 }

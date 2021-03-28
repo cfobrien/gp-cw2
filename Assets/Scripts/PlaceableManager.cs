@@ -23,6 +23,7 @@ public class PlaceableManager : MonoBehaviour
     private float t = 0.0f;
     private float roadsPerSec = 5.0f;      // number of road Placeables covered by player in 1 second
 
+    public GameObject player;
     public GameObject road;
     public GameObject building2, building5, building8, patio;
     public GameObject npc1, npc2, npc3, npc4;
@@ -166,6 +167,7 @@ public class PlaceableManager : MonoBehaviour
         foreach (NPC npc in npcs) {
             if (npc != null) {
                 npc.RandomWalk(Vector3.up, 0.001f);
+                npc.Face(player.transform);
             }
         }
     }
