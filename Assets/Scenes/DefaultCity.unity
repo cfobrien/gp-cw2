@@ -1502,6 +1502,8 @@ MonoBehaviour:
   roadLen: 0
   roadHeight: 0
   roadRadius: 0
+  player: {fileID: 288045741}
+  cylinder: {fileID: 2071215015}
   road: {fileID: 1787763454}
   building2: {fileID: 0}
   building5: {fileID: 1403539500}

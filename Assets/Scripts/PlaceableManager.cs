@@ -24,6 +24,7 @@ public class PlaceableManager : MonoBehaviour
     private float roadsPerSec = 5.0f;      // number of road Placeables covered by player in 1 second
 
     public GameObject player;
+    public GameObject cylinder;
     public GameObject road;
     public GameObject building2, building5, building8, patio;
     public GameObject npc1, npc2, npc3, npc4;
@@ -39,6 +40,15 @@ public class PlaceableManager : MonoBehaviour
         // Calculate inradius (apothem) of concentric circle to numRoadPlaceables-sided regular polygon
         float inradius = roadLen / (2 * Mathf.Tan(Mathf.PI / (float)numRoadPlaceables));
         return inradius;
+    }
+
+    public float GetRadius(GameObject gameObject) {
+        Vector3 placeableSize = GetPlaceableSize(gameObject);
+        float placeableHeight = placeableSize.y;
+        float placeableLen = placeableSize.z;
+        // Calculate radius of concentric circle to numRoadPlaceables-sided regular polygon
+        float radius = roadLen / (2 * Mathf.Sin(Mathf.PI / (float)numRoadPlaceables));
+        return radius;
     }
 
     bool IsPlaceable(GameObject gameObject, Placeable[] side, int i) {
@@ -135,6 +145,8 @@ public class PlaceableManager : MonoBehaviour
         roadHeight = roadSize.y;
 
         rotationSpeed = (360 * roadsPerSec) / numRoadPlaceables;
+
+        cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
 
         GenRoad(road);
 		//GenPlaceables(building2, 20);
