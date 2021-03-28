@@ -9,15 +9,18 @@ public class PlotManager : MonoBehaviour
 {
     public static int numRoadPlots = 100;
 	public static int numObstacles = 100;
-    public static float rotationSpeed = 36.0f;
+    //public static float rotationSpeed = 36.0f;
+    public static float rotationSpeed;
     private static float angleIncrement = 360.0f / (float)numRoadPlots;
     public static Plot[] roadPlots = new Plot[numRoadPlots];
     public static Plot[] lhsPlots = new Plot[numRoadPlots];
     public static Plot[] rhsPlots = new Plot[numRoadPlots];
 	public static Plot[] obstaclePlots =  new Plot[numObstacles];
     public float roadLen, roadHeight;
+    public float roadRadius;
 
     private float t = 0.0f;
+    private float roadsPerSec = 5.0f;      // number of road plots covered by player in 1 second
 
     public GameObject road, building5, building8, patio, obstacle, obstacle1, obstacle2, obstacle3;
 
@@ -42,6 +45,7 @@ public class PlotManager : MonoBehaviour
 
     void GenRoad(GameObject rootRoad) {
         float inradius = GetInradius(rootRoad);
+        roadRadius = inradius;
         for (int i = 0; i < roadPlots.Length; i++) {
             roadPlots[i] = MakePlot<Road>(Instantiate(road),
                                           (inradius-roadHeight)*Vector3.up,
@@ -107,6 +111,8 @@ public class PlotManager : MonoBehaviour
         Vector3 roadSize = GetPlotSize(road);
         roadLen = roadSize.z;
         roadHeight = roadSize.y;
+
+        rotationSpeed = (360 * roadsPerSec) / numRoadPlots;
 
         GenRoad(road);
         GenPlots(building5, 5);

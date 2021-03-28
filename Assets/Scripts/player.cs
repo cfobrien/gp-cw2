@@ -18,9 +18,7 @@ public class player : MonoBehaviour
         lives = 3;
         state = 0;
         height = camera.GetComponent<PlotManager>().GetInradius(camera.GetComponent<PlotManager>().road);
-        Debug.Log(height);
         transform.position = new Vector3(0.0f, height, 0.6f);
-        //target = transform.position;
     }
 
     // Update is called once per frame
@@ -36,19 +34,6 @@ public class player : MonoBehaviour
         {
             transform.position = new Vector3(-0.36f, height, 0.6f);
         }
-
-        //if (Input.GetKeyDown("a") && state > -1)
-        //{
-        //    state -= 1;
-        //    target = new Vector3(transform.position.x - moveDistance, transform.position.y, transform.position.z);
-        //}
-        //else if (Input.GetKeyDown("d") && state < 1)
-        //{
-        //    state += 1;
-        //    target = new Vector3(transform.position.x + moveDistance, transform.position.y, transform.position.z);
-        //}
-
-        //transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 
 	void OnTriggerEnter(Collider other) {
