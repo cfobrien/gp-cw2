@@ -6,7 +6,6 @@ public class animationController : MonoBehaviour
 {
     Animator animator;
     public player currPlayer;
-    int lives;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +13,6 @@ public class animationController : MonoBehaviour
         animator = GetComponent<Animator>();
         GameObject playerObj = GameObject.Find("newPlayer");
         currPlayer = playerObj.GetComponent<player>();
-        lives = 3;
     }
 
     // Update is called once per frame
@@ -55,14 +53,8 @@ public class animationController : MonoBehaviour
             animator.SetBool("rightTurn", false);
         }
 
-        // simulates losing lives - for testing
-        if (Input.GetKeyDown("m"))
-        {
-            lives -= 1;
-            Debug.Log("lives: " + lives);
-        }
         // check if lost all lives
-        if (lives == 0 || currPlayer.lives == 0)
+        if (GameManager.Instance.lives == 0)
         {
             animator.SetBool("dead", true);
         }

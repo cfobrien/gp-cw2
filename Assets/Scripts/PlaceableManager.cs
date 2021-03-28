@@ -21,7 +21,7 @@ public class PlaceableManager : MonoBehaviour
     public float roadRadius;
 
     private float t = 0.0f;
-    private float roadsPerSec = 5.0f;      // number of road Placeables covered by player in 1 second
+    private float roadsPerSec = 2.0f;      // number of road Placeables covered by player in 1 second
 
     public GameObject player;
     public GameObject cylinder;

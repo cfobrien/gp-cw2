@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
     }
 
 	public HealthBar healthBar;  // ref to health bar
-    [SerializeField] private int MAXLIVES = 4;
-    public int lives;
+    [SerializeField] public int MAXLIVES = 4;
+    public int lives = 0;
 	public int level = 0;  // based on btn from scene select
     static private int prevLifeCounter;  // so can detect when changes
 
