@@ -88,29 +88,27 @@ public class PlaceableManager : MonoBehaviour
     void GenPlaceables(GameObject root, int num) {
         System.Random rand = new System.Random();
         for (int i = 0; i < num; i++) {
-            int placeableIndexCandidate;
             bool rightHandSide = rand.Next(-1,1) == 0 ? true : false;
             Placeable[] side = rightHandSide ? rhsPlaceables : lhsPlaceables;
-            GameObject placeable = Instantiate(root);
-            do {
-                placeableIndexCandidate = rand.Next(0, numRoadPlaceables);
-            } while (!IsPlaceable(placeable, side, placeableIndexCandidate));
 
-            float inradius = GetInradius(placeable);
-            if (rightHandSide) {
-                placeable.GetComponent<Transform>().position = -2.0f*Vector3.right;
-                placeable.GetComponent<Transform>().rotation *= Quaternion.Euler(180*Vector3.up);
+            int index = GetEmptyIndex(side, rand);
+            if (index == -1) {
+                Debug.Log("No more space in array");
             } else {
-                placeable.GetComponent<Transform>().position = 2.0f*Vector3.right;
-                placeable.GetComponent<Transform>().rotation = Quaternion.Euler(Vector3.zero);
-            }
-            lhsPlaceables[placeableIndexCandidate] = MakePlaceable<Placeable>(placeable, inradius*Vector3.up);
-            lhsPlaceables[placeableIndexCandidate].Rotate(angleIncrement*placeableIndexCandidate);
-        }
-    }
+                GameObject placeable = Instantiate(root);
 
-    void GenPlaceables<T>(GameObject root, int num) {
-        return;
+                float inradius = GetInradius(placeable);
+                if (rightHandSide) {
+                    placeable.GetComponent<Transform>().position = -2.0f*Vector3.right;
+                    placeable.GetComponent<Transform>().rotation *= Quaternion.Euler(180*Vector3.up);
+                } else {
+                    placeable.GetComponent<Transform>().position = 2.0f*Vector3.right;
+                    placeable.GetComponent<Transform>().rotation = Quaternion.Euler(Vector3.zero);
+                }
+                lhsPlaceables[index] = MakePlaceable<Placeable>(placeable, inradius*Vector3.up);
+                lhsPlaceables[index].Rotate(angleIncrement*index);
+            }
+        }
     }
 
 	void GenObstacles(GameObject root, int num) {
@@ -143,7 +141,6 @@ public class PlaceableManager : MonoBehaviour
             if (npcIndex == -1) {
                 Debug.Log("No more space in npcs array");
             } else {
-                Debug.Log(npcIndex.ToString());
                 GameObject npc = Instantiate(root);
 
                 float inradius = GetInradius(npc);
@@ -177,10 +174,10 @@ public class PlaceableManager : MonoBehaviour
         cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
 
         GenRoad(road);
-		GenPlaceables(building2, 20);
-        GenPlaceables(building5, 20);
-        GenPlaceables(building8, 20);
-        GenPlaceables(patio, 2);
+		GenPlaceables(building2, 10);
+        GenPlaceables(building5, 10);
+        GenPlaceables(building8, 10);
+        GenPlaceables(patio, 10);
 
         // GenObstacles(patio, 3);
 
