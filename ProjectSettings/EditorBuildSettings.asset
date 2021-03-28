@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DefaultCity.unity
     guid: 41f17dfa9b440684e803c2de82e739d5
   - enabled: 1
+    path: Assets/Scenes/ChoseLevel.unity
+    guid: fdacbfbdc95e8814a81c6ab425cc9631
+  - enabled: 1
     path: Assets/Scenes/Lose.unity
     guid: d9a206fa912c7aa4fa3ec5e4fd56b644
   m_configObjects: {}
