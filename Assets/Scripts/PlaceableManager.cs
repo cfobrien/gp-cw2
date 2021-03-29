@@ -7,11 +7,14 @@ using Placeables;
 
 public class PlaceableManager : MonoBehaviour
 {
+    public static int numFloorTiles = 100;
+    public static int cylinderWidth = 1;
     public static int numRoadPlaceables = 100;
 	public static int numObstacles = 100;
     public static int numNPCs = 100;
     public static float rotationSpeed, rotationSpeedScale;
     private static float angleIncrement = 360.0f / (float)numRoadPlaceables;
+    public static Floor[,] floors = new Floor[cylinderWidth,numFloorTiles];
     public static Road[] roadPlaceables = new Road[numRoadPlaceables];
     public static Placeable[] lhsPlaceables = new Placeable[numRoadPlaceables];
     public static Placeable[] rhsPlaceables = new Placeable[numRoadPlaceables];
@@ -24,10 +27,10 @@ public class PlaceableManager : MonoBehaviour
     private float roadsPerSec = 2.0f;      // number of road Placeables covered by player in 1 second
 
     public GameObject player;
-    public GameObject cylinder;
     public GameObject road;
     public GameObject building2, building5, building8, patio;
     public GameObject npc1, npc2, npc3, npc4;
+    public GameObject floor;
 
     Vector3 GetPlaceableSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -85,6 +88,19 @@ public class PlaceableManager : MonoBehaviour
         }
     }
 
+    void GenFloor(GameObject root) {
+        float inradius = GetInradius(root);
+        for (int j = 0; j < cylinderWidth; j++) {
+            for (int i = 0; i < floors.Length; i++) {
+                Debug.Log(j*numFloorTiles+i);
+                floors[j,i] = MakePlaceable<Floor>(Instantiate(floor),
+                                              new Vector3(0.0f, inradius-roadHeight, -cylinderWidth/2 + j),
+                                              "Floor " + (j*numFloorTiles+i+1).ToString());
+                floors[j,i].Rotate(angleIncrement*(i));
+            }
+        }
+    }
+
     void GenPlaceables(GameObject root, int num) {
         System.Random rand = new System.Random();
         for (int i = 0; i < num; i++) {
@@ -105,7 +121,7 @@ public class PlaceableManager : MonoBehaviour
                     placeable.GetComponent<Transform>().position = 2.0f*Vector3.right;
                     placeable.GetComponent<Transform>().rotation = Quaternion.Euler(Vector3.zero);
                 }
-                lhsPlaceables[index] = MakePlaceable<Placeable>(placeable, inradius*Vector3.up);
+                lhsPlaceables[index] = MakePlaceable<Placeable>(placeable, (inradius-roadHeight)*Vector3.up);
                 lhsPlaceables[index].Rotate(angleIncrement*index);
             }
         }
@@ -172,8 +188,9 @@ public class PlaceableManager : MonoBehaviour
         rotationSpeed = (360 * roadsPerSec) / numRoadPlaceables;
         rotationSpeedScale = 1.0f;
 
-        cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
+        // cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
 
+        GenFloor(floor);
         GenRoad(road);
 		GenPlaceables(building2, 10);
         GenPlaceables(building5, 10);

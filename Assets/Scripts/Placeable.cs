@@ -89,6 +89,15 @@ namespace Placeables {
         }
     }
 
+    public class Floor: Placeable {
+        public Floor(GameObject gameObject, Transform transform, string name = null) : base(gameObject, transform, name) {
+        }
+        public Floor(GameObject gameObject, Vector3 position, string name = null) : base(gameObject, position, name) {
+        }
+        public Floor(GameObject gameObject, string name = null) : base(gameObject, name) {
+        }
+    }
+
     public class NPC: Placeable, INPC {
         public NPC(GameObject gameObject, Transform transform, string name = null) : base(gameObject, transform, name) {
         }

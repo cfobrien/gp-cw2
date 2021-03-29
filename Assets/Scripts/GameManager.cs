@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     private static GameManager _instance;  // singleton, only one instance
 
     public static GameManager Instance
@@ -65,6 +64,14 @@ public class GameManager : MonoBehaviour
 		lives = 0;
 		prevLifeCounter = lives;
 		Debug.Log(lives);
+        if (level == 0) {
+            GameObject.Find("Sky").GetComponent<SpriteRenderer>().sprite = GameObject.Find("rome").GetComponent<SpriteRenderer>().sprite;
+        } else if (level == 1) {
+            GameObject.Find("Sky").GetComponent<SpriteRenderer>().sprite = GameObject.Find("paris").GetComponent<SpriteRenderer>().sprite;
+        } else if (level == 2) {
+            GameObject.Find("Sky").GetComponent<SpriteRenderer>().sprite = GameObject.Find("madrid").GetComponent<SpriteRenderer>().sprite;
+        }
+
 	}
 
     // Update is called once per frame
