@@ -212,7 +212,7 @@ public class PlaceableManager : MonoBehaviour
             count++;
             if (npc != null) {
                 countnonnull++;
-                npc.RandomWalk(Vector3.up, 0.001f);
+                // npc.RandomWalk(Vector3.up, 0.001f);
                 npc.Face(player.transform);
             }
         }
