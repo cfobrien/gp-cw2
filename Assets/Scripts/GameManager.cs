@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public int lives = 0;
 	public int level = 0;  // based on btn from scene select
     static private int prevLifeCounter;  // so can detect when changes
+	private AudioSource loseLifeMusic; // audio to playe when lose life
 
 
     // Start is called before the first frame update
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
 		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
 			return;
 		}
+		loseLifeMusic = GameObject.Find("LoseHealthAudio").GetComponent<AudioSource>();
 		// healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         // healthBar.SetMaxHealth(MAXLIVES);;
 		// lives = 0;
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
 		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
 			return;
 		}
+		loseLifeMusic = GameObject.Find("LoseHealthAudio").GetComponent<AudioSource>();
 		healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         healthBar.SetMaxHealth(MAXLIVES);;
 		lives = 0;
@@ -79,14 +82,16 @@ public class GameManager : MonoBehaviour
     void DidPlayerLoseLife(){
         if (prevLifeCounter != lives) // life lost
         {
-            Debug.Log("lost life");
+			loseLifeMusic.Play();
+			Debug.Log("lost life");
 			healthBar.SetHealth(MAXLIVES - lives);
 
         }
         prevLifeCounter = lives; // update
 
         if (lives == MAXLIVES){  // check if lost game
-            Debug.Log("lost game");
+			loseLifeMusic.Play();
+			Debug.Log("lost game");
 			SceneManager.LoadScene(2);
         }
     }
