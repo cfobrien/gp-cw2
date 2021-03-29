@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
 			return;
 		}
-		loseLifeMusic = GameObject.Find("LoseHealthAudio").GetComponent<AudioSource>();
+		//loseLifeMusic = GameObject.Find("LoseHealthAudio").GetComponent<AudioSource>();
 		// healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         // healthBar.SetMaxHealth(MAXLIVES);;
 		// lives = 0;
