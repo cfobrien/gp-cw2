@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int MAXLIVES = 4;
     public int lives = 0;
 	public int level = 0;  // based on btn from scene select
+	public float finalTime;
     static private int prevLifeCounter;  // so can detect when changes
 	private AudioSource loseLifeMusic; // audio to playe when lose life
 
@@ -48,12 +49,6 @@ public class GameManager : MonoBehaviour
 		if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
 			return;
 		}
-		//loseLifeMusic = GameObject.Find("LoseHealthAudio").GetComponent<AudioSource>();
-		// healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
-        // healthBar.SetMaxHealth(MAXLIVES);;
-		// lives = 0;
-		// prevLifeCounter = lives;
-
     }
 
 	void OnLevelWasLoaded()  // start and awake dont run on other scenes bc dont destroy on load
@@ -83,7 +78,7 @@ public class GameManager : MonoBehaviour
 		if(SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2){
 			return;
 		}
-			DidPlayerLoseLife();
+		DidPlayerLoseLife();
     }
 
     void DidPlayerLoseLife(){
