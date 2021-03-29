@@ -8,7 +8,6 @@ using Placeables;
 public class PlaceableManager : MonoBehaviour
 {
     public static int numFloorTiles = 100;
-    public static int cylinderWidth = 1;
     public static int numRoadPlaceables = 100;
 	public static int numObstacles = 100;
     public static int numNPCs = 100;
@@ -186,7 +185,7 @@ public class PlaceableManager : MonoBehaviour
         rotationSpeed = (360 * roadsPerSec) / numRoadPlaceables;
         rotationSpeedScale = 1.0f;
 
-        // cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
+        rotationSpeedScale = 1;
 
         GenFloor(floor);
         GenRoad(road);
@@ -215,6 +214,7 @@ public class PlaceableManager : MonoBehaviour
     void Update()
     {
         t = Time.deltaTime;
+        rotationSpeedScale += t/60;
         if (GameManager.Instance.lives != GameManager.Instance.MAXLIVES) {
             UpdatePlaceables(roadPlaceables);
             UpdatePlaceables(npcs);
