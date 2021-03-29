@@ -14,7 +14,7 @@ public class PlaceableManager : MonoBehaviour
     public static int numNPCs = 100;
     public static float rotationSpeed, rotationSpeedScale;
     private static float angleIncrement = 360.0f / (float)numRoadPlaceables;
-    public static Floor[,] floors = new Floor[cylinderWidth,numFloorTiles];
+    public static Floor[] floors = new Floor[numFloorTiles];
     public static Road[] roadPlaceables = new Road[numRoadPlaceables];
     public static Placeable[] lhsPlaceables = new Placeable[numRoadPlaceables];
     public static Placeable[] rhsPlaceables = new Placeable[numRoadPlaceables];
@@ -31,6 +31,7 @@ public class PlaceableManager : MonoBehaviour
     public GameObject building2, building5, building8, patio;
     public GameObject npc1, npc2, npc3, npc4;
     public GameObject floor;
+    public GameObject bench;
 
     Vector3 GetPlaceableSize(GameObject gameObject) {
         return gameObject.GetComponent<MeshRenderer>().bounds.size;
@@ -90,14 +91,11 @@ public class PlaceableManager : MonoBehaviour
 
     void GenFloor(GameObject root) {
         float inradius = GetInradius(root);
-        for (int j = 0; j < cylinderWidth; j++) {
-            for (int i = 0; i < floors.Length; i++) {
-                Debug.Log(j*numFloorTiles+i);
-                floors[j,i] = MakePlaceable<Floor>(Instantiate(floor),
-                                              new Vector3(0.0f, inradius-roadHeight, -cylinderWidth/2 + j),
-                                              "Floor " + (j*numFloorTiles+i+1).ToString());
-                floors[j,i].Rotate(angleIncrement*(i));
-            }
+        for (int i = 0; i < floors.Length; i++) {
+            floors[i] = MakePlaceable<Floor>(Instantiate(floor),
+                                          (inradius-roadHeight)*Vector3.up,
+                                          "Floor " + (i+1).ToString());
+            floors[i].Rotate(angleIncrement*(i));
         }
     }
 
@@ -192,10 +190,11 @@ public class PlaceableManager : MonoBehaviour
 
         GenFloor(floor);
         GenRoad(road);
-		GenPlaceables(building2, 10);
-        GenPlaceables(building5, 10);
-        GenPlaceables(building8, 10);
-        GenPlaceables(patio, 10);
+		GenPlaceables(building2, 40);
+        GenPlaceables(building5, 40);
+        GenPlaceables(building8, 40);
+        // GenPlaceables(patio, 10);
+        GenPlaceables(bench, 20);
 
         // GenObstacles(patio, 3);
 
@@ -222,6 +221,8 @@ public class PlaceableManager : MonoBehaviour
             UpdatePlaceables(lhsPlaceables);
             UpdatePlaceables(rhsPlaceables);
             UpdatePlaceables(obstacles);
+            UpdatePlaceables(floors);
+
         }
         int count = 0;
         int countnonnull = 0;
