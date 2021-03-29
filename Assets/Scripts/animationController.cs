@@ -19,28 +19,19 @@ public class animationController : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKey("w"))
-        {
-            animator.SetBool("running", true);
-        }
-        else
-        {
-            animator.SetBool("running", false);
-        }
-
         if (Input.GetKeyDown("space"))
         {
             animator.SetBool("jump", true);
             animator.SetBool("leftTurn", false);
             animator.SetBool("rightTurn", false);
         }
-        else if (Input.GetKeyDown("a") && !Input.GetKey("d"))
+        else if ((Input.GetKeyDown("a") && !Input.GetKey("d")) || (Input.GetKeyDown("left") && !Input.GetKey("right")))
         {
             animator.SetBool("jump", false); 
             animator.SetBool("leftTurn", true);
             animator.SetBool("rightTurn", false);
         }
-        else if (!Input.GetKey("a") && Input.GetKeyDown("d"))
+        else if ((!Input.GetKey("a") && Input.GetKeyDown("d")) || (!Input.GetKeyDown("left") && Input.GetKey("right")))
         {
             animator.SetBool("jump", false);
             animator.SetBool("leftTurn", false);

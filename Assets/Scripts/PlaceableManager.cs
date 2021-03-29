@@ -216,7 +216,7 @@ public class PlaceableManager : MonoBehaviour
     void Update()
     {
         t = Time.deltaTime;
-        if (Input.GetKey(KeyCode.W)) {
+        if (GameManager.Instance.lives != GameManager.Instance.MAXLIVES) {
             UpdatePlaceables(roadPlaceables);
             UpdatePlaceables(npcs);
             UpdatePlaceables(lhsPlaceables);
