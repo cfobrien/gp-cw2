@@ -10,7 +10,7 @@ public class PlaceableManager : MonoBehaviour
     public static int numRoadPlaceables = 100;
 	public static int numObstacles = 100;
     public static int numNPCs = 100;
-    public static float rotationSpeed;
+    public static float rotationSpeed, rotationSpeedScale;
     private static float angleIncrement = 360.0f / (float)numRoadPlaceables;
     public static Road[] roadPlaceables = new Road[numRoadPlaceables];
     public static Placeable[] lhsPlaceables = new Placeable[numRoadPlaceables];
@@ -170,6 +170,7 @@ public class PlaceableManager : MonoBehaviour
         roadHeight = roadSize.y;
 
         rotationSpeed = (360 * roadsPerSec) / numRoadPlaceables;
+        rotationSpeedScale = 1.0f;
 
         cylinder.transform.localScale = Vector3.one * 2.0f * GetRadius(road);
 
@@ -190,7 +191,7 @@ public class PlaceableManager : MonoBehaviour
     void UpdatePlaceables(Placeable[] placeables) {
         foreach (Placeable placeable in placeables) {
             if (placeable != null) {
-                placeable.Rotate(-rotationSpeed * t);
+                placeable.Rotate(-rotationSpeed * rotationSpeedScale * t);
             }
         }
     }

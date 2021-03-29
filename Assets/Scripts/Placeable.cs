@@ -56,6 +56,10 @@ namespace Placeables {
         public void Rotate(float angle) {
             this.gameObject.GetComponent<Transform>().RotateAround(rootPos, Vector3.right, angle);
         }
+
+        public Vector3 PointTowards(Vector3 point) {
+            return point - this.gameObject.transform.position;
+        }
     }
 
     public class Road : Placeable {
@@ -105,7 +109,7 @@ namespace Placeables {
         }
 
         public void Face(Transform transform) {
-            gameObject.transform.LookAt(transform, gameObject.transform.up);
+            gameObject.transform.LookAt(transform);
         }
     }
 }
