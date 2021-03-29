@@ -8,7 +8,7 @@ public class getScore : MonoBehaviour
     public float StartTime;
     public float timeAlive;
     public Text score;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +25,6 @@ public class getScore : MonoBehaviour
             timeAlive += Time.deltaTime;
             score.text = timeAlive.ToString("F2") + "s";
         }
+		GameManager.Instance.finalTime = timeAlive;
     }
 }
